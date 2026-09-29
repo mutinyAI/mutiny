@@ -850,8 +850,10 @@ function Terrain(terrainCanvas, pathCanvas, opt){
     // stay on the page and out of the type
     if (head.y < H*0.13) dy += 1.2; if (head.y > H*0.9) dy -= 0.6;
     if (o.floor != null){
-      // the type sits above this band: the line walks beneath it and climbs back down if it drifts up
-      if (head.y < H*o.floor) dy += 1.4 + (H*o.floor - head.y)/H*6;
+      // the type sits above this band: the line (and the labels that ride above it) walk beneath the
+      // lockup's real bottom edge, and climb back down if they drift up
+      const floorY = keep ? keep.y1 + o.floor : H*0.74;
+      if (head.y < floorY) dy += 1.4 + (floorY - head.y)/H*8;
     } else if (keep){ const sx=head.x-off[0]; const nearX = sx>keep.x0-140 && sx<keep.x1+60; const nearY = head.y>keep.y0-90 && head.y<keep.y1+40;
       if (nearX && nearY) { dy -= 1.6; dx += 0.4; }
       // to the right of the type the whole height is open ground; drift back down into it
@@ -959,7 +961,7 @@ function Terrain(terrainCanvas, pathCanvas, opt){
   return { setProgress, stats, life, head: () => ({ x: SX(head.x), y: SY(head.y) }), size: () => ({W,H}), marks: () => marks };
 }
 document.fonts.ready.then(()=>{
-  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.82, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:.74, clear:()=>document.querySelector('.hero .lockup') });
+  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.82, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:96, clear:()=>document.querySelector('.hero .lockup') });
   Terrain(document.getElementById('model-terrain'), document.getElementById('model-path'), { seed:29, scale:260, levels:22, walk:40, headAt:.62, startY:.5, labels:true });
   mountJobs();
   mountLoop();
