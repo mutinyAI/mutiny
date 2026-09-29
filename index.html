@@ -502,8 +502,8 @@
       </h1>
     </div>
     <div class="c-9-12 aside">
-      <p class="lede in d2">Every company is a series of decisions. We know which ones win. Mutiny positions, builds, operates, and scales your company autonomously with a tailored fleet of AI agents. From 0, or wherever you are, to infinity.</p>
-      <p class="lede in d2">Rebel-1, a world model trained on millions of company and product decisions and outcomes, guides your business.</p>
+      <p class="lede in d2">Mutiny positions, builds, operates, and scales your company autonomously with a tailored fleet of AI agents. From 0, or wherever you are, to infinity.</p>
+      <p class="lede in d2">Rebel-1, a world model trained on millions of company and product decisions and outcomes, guides your business. Every company is a series of decisions. We know which ones win.</p>
       <a class="cta in d3" href="/intake/">Start company<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></a>
       <p class="note in d3">A small number of founders go first.</p>
     </div>
@@ -823,6 +823,8 @@ function Terrain(terrainCanvas, pathCanvas, opt){
     const el2=o.clear2 && o.clear2(); if (el2){ const q=el2.getBoundingClientRect(); x0=Math.min(x0,q.left-hr.left); y0=Math.min(y0,q.top-hr.top); x1=Math.max(x1,q.right-hr.left); y1=Math.max(y1,q.bottom-hr.top); }
     keep={x0:x0-20,y0:y0-12,x1:x1+20,y1:y1+12};
     gl.uniform4f(u.clear, keep.x0, keep.y0, keep.x1-keep.x0, keep.y1-keep.y0);
+    // before the walk begins, start in the middle of the band beneath the type
+    if (o.floor != null && head && trail.length <= 1){ head.y = (keep.y1 + o.floor + H*0.86)/2; trail=[{x:head.x,y:head.y}]; }
   }
   const life = Life(rnd);
   let current = null, labelAge = 0, sinceDecision = 0, nextIn = 6.5;
@@ -850,10 +852,13 @@ function Terrain(terrainCanvas, pathCanvas, opt){
     // stay on the page and out of the type
     if (head.y < H*0.13) dy += 1.2; if (head.y > H*0.9) dy -= 0.6;
     if (o.floor != null){
-      // the type sits above this band: the line (and the labels that ride above it) walk beneath the
-      // lockup's real bottom edge, and climb back down if they drift up
-      const floorY = keep ? keep.y1 + o.floor : H*0.74;
+      // the type sits above this band: the line (and the labels that ride above it) walk in the band
+      // between the lockup's real bottom edge and the foot of the hero, and are steered back toward
+      // the middle of that band when they stray
+      const floorY = keep ? keep.y1 + o.floor : H*0.7, bottomY = H*0.86, mid=(floorY+bottomY)/2;
       if (head.y < floorY) dy += 1.4 + (floorY - head.y)/H*8;
+      else if (head.y > bottomY) dy -= 1.4 + (head.y - bottomY)/H*8;
+      else dy += (mid - head.y)/H*1.2;
     } else if (keep){ const sx=head.x-off[0]; const nearX = sx>keep.x0-140 && sx<keep.x1+60; const nearY = head.y>keep.y0-90 && head.y<keep.y1+40;
       if (nearX && nearY) { dy -= 1.6; dx += 0.4; }
       // to the right of the type the whole height is open ground; drift back down into it
@@ -961,7 +966,7 @@ function Terrain(terrainCanvas, pathCanvas, opt){
   return { setProgress, stats, life, head: () => ({ x: SX(head.x), y: SY(head.y) }), size: () => ({W,H}), marks: () => marks };
 }
 document.fonts.ready.then(()=>{
-  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.82, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:96, clear:()=>document.querySelector('.hero .lockup') });
+  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.76, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:40, clear:()=>document.querySelector('.hero .lockup') });
   Terrain(document.getElementById('model-terrain'), document.getElementById('model-path'), { seed:29, scale:260, levels:22, walk:40, headAt:.62, startY:.5, labels:true });
   mountJobs();
   mountLoop();
