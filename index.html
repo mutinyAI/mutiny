@@ -822,9 +822,11 @@ function Terrain(terrainCanvas, pathCanvas, opt){
     let x0=r.left-hr.left, y0=r.top-hr.top, x1=r.right-hr.left, y1=r.bottom-hr.top;
     const el2=o.clear2 && o.clear2(); if (el2){ const q=el2.getBoundingClientRect(); x0=Math.min(x0,q.left-hr.left); y0=Math.min(y0,q.top-hr.top); x1=Math.max(x1,q.right-hr.left); y1=Math.max(y1,q.bottom-hr.top); }
     keep={x0:x0-20,y0:y0-12,x1:x1+20,y1:y1+12};
+    // the copy's real bottom edge (the box may carry padding): the line's band hangs from here
+    let tb=y0; for (const ch of el.querySelectorAll('*')){ const q=ch.getBoundingClientRect(); if (q.height) tb=Math.max(tb, q.bottom-hr.top); } keep.text=tb;
     gl.uniform4f(u.clear, keep.x0, keep.y0, keep.x1-keep.x0, keep.y1-keep.y0);
-    // before the walk begins, start in the middle of the band beneath the type
-    if (o.floor != null && head && trail.length <= 1){ head.y = (keep.y1 + o.floor + H*0.86)/2; trail=[{x:head.x,y:head.y}]; }
+    // before the walk begins, start in the band beneath the type
+    if (o.floor != null && head && trail.length <= 1){ head.y = keep.text + o.floor + H*0.04; trail=[{x:head.x,y:head.y}]; }
   }
   const life = Life(rnd);
   let current = null, labelAge = 0, sinceDecision = 0, nextIn = 6.5;
@@ -855,10 +857,10 @@ function Terrain(terrainCanvas, pathCanvas, opt){
       // the type sits above this band: the line (and the labels that ride above it) walk in the band
       // between the lockup's real bottom edge and the foot of the hero, and are steered back toward
       // the middle of that band when they stray
-      const floorY = keep ? keep.y1 + o.floor : H*0.7, bottomY = H*0.86, mid=(floorY+bottomY)/2;
+      const floorY = keep ? keep.text + o.floor : H*0.7, bottomY = Math.min(H*0.9, floorY + H*0.12), mid = floorY + H*0.04;
       if (head.y < floorY) dy += 1.4 + (floorY - head.y)/H*8;
       else if (head.y > bottomY) dy -= 1.4 + (head.y - bottomY)/H*8;
-      else dy += (mid - head.y)/H*1.2;
+      else dy += (mid - head.y)/H*1.6;
     } else if (keep){ const sx=head.x-off[0]; const nearX = sx>keep.x0-140 && sx<keep.x1+60; const nearY = head.y>keep.y0-90 && head.y<keep.y1+40;
       if (nearX && nearY) { dy -= 1.6; dx += 0.4; }
       // to the right of the type the whole height is open ground; drift back down into it
@@ -966,7 +968,7 @@ function Terrain(terrainCanvas, pathCanvas, opt){
   return { setProgress, stats, life, head: () => ({ x: SX(head.x), y: SY(head.y) }), size: () => ({W,H}), marks: () => marks };
 }
 document.fonts.ready.then(()=>{
-  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.76, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:40, clear:()=>document.querySelector('.hero .lockup') });
+  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.76, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:60, clear:()=>document.querySelector('.hero .lockup') });
   Terrain(document.getElementById('model-terrain'), document.getElementById('model-path'), { seed:29, scale:260, levels:22, walk:40, headAt:.62, startY:.5, labels:true });
   mountJobs();
   mountLoop();
