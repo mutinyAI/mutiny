@@ -54,13 +54,26 @@
   .bar .mark{ color:var(--ink); font-weight:500; letter-spacing:-.005em; }
   .bar .mark small{ font-weight:400; font-size:14px; color:var(--ink-48); margin-left:12px; }
   .bar a:hover{ color:var(--ink); }
-  .hero .lockup{ align-self:end; align-items:start; padding-top:calc(var(--u)*4); border-top:1px solid var(--ink-28); }
-  .hero .headline h1{ margin-bottom:0; }
-  .hero .aside{ padding-top:.28em; }
-  .hero .aside .lede{ max-width:none; font-size:clamp(16px, 1.22vw, 20px); }
+  /* The hero: headline front and center, the map around it, the line walking beneath. */
+  .hero .lockup{ display:flex; flex-direction:column; align-items:center; text-align:center; align-self:center; justify-self:center; max-width:min(880px, 92vw); padding:0 0 12vh; border-top:0; }
+  .hero .headline, .hero .aside{ grid-column:auto; width:100%; }
+  .hero .headline h1{ margin:0 auto; text-align:center; }
+  .hero .headline h1 > span{ padding:0 .06em; }
+  .hero .aside{ display:flex; flex-direction:column; align-items:center; padding-top:calc(var(--u)*3); }
+  .hero .aside .lede{ max-width:60ch; font-size:clamp(16px, 1.22vw, 20px); text-align:center; }
   .hero .aside .lede + .lede{ margin-top:calc(var(--u)*1.25); }
   .hero .aside .cta{ margin-top:calc(var(--u)*3.5); }
   .hero .aside .note{ margin-top:calc(var(--u)*1.5); }
+  /* Paper with a faint drafting grid and a warm light, after hub.xyz; the map fades into it at the edges like an old chart. */
+  .hero{ background:
+      radial-gradient(120% 70% at 50% 0%, rgba(255,252,244,.9), rgba(255,252,244,0) 60%),
+      linear-gradient(rgba(20,18,16,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,18,16,.045) 1px, transparent 1px),
+      var(--paper);
+    background-size:auto, 44px 44px, 44px 44px, auto; background-position:0 0, 0 0, 0 0, 0 0; }
+  .hero::after{ content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(85% 70% at 50% 55%, rgba(242,240,234,0) 55%, rgba(242,240,234,.55) 100%),
+               linear-gradient(180deg, rgba(242,240,234,.35), rgba(242,240,234,0) 22%, rgba(242,240,234,0) 78%, rgba(242,240,234,.5)); }
 
   h1{
     font-size:clamp(36px, min(5.1vw, 9vh), 86px); line-height:.94; font-weight:500; letter-spacing:-.036em;
@@ -383,8 +396,7 @@
 
   @media (max-width:960px){
     .c-1-7,.c-1-5,.c-7-12,.c-1-8,.c-9-12{ grid-column:1 / -1; }
-    .hero .lockup{ align-items:start; border-top:0; padding-top:0; }
-    .hero .aside{ padding-top:0; }
+    .hero .aside{ padding-top:calc(var(--u)*2); }
     .hero .aside .lede{ max-width:44ch; }
     .grid{ row-gap:calc(var(--u)*5); }
     .seq{ grid-template-columns:1fr 1fr; }
@@ -395,7 +407,7 @@
   }
   @media (max-width:600px){
     .hero{ padding:calc(var(--u)*2) 20px; height:auto; min-height:100dvh; }
-    .hero .lockup{ padding-top:min(26vh, 240px); }
+    .hero .lockup{ padding-bottom:22vh; }
     h1{ font-size:clamp(40px, 12vw, 64px); margin-bottom:calc(var(--u)*3); line-height:.98; }
     h1 > span{ white-space:normal; overflow:visible; }
     .sign{ gap:16px; }
@@ -420,9 +432,9 @@
     .bar{ font-size:13px; line-height:18px; }
     .bar .mark small{ margin-left:8px; font-size:12px; }
     .hero{ padding:14px 18px 16px; }
-    .hero .lockup{ padding-top:min(24vh, 210px); }
+    .hero .lockup{ padding-bottom:20vh; }
     h1{ font-size:clamp(27px, 8.2vw, 36px); line-height:1.04; letter-spacing:-.03em; margin:0 0 12px -0.02em; }
-    .hero .aside .lede{ font-size:14.5px; line-height:1.4; max-width:none; }
+    .hero .aside .lede{ font-size:14.5px; line-height:1.4; max-width:36ch; }
     .hero .aside .lede + .lede{ margin-top:8px; }
     .hero .aside .cta{ margin-top:16px; }
     .cta{ height:46px; font-size:15px; padding:0 16px 0 18px; width:auto; justify-content:flex-start; gap:12px; }
@@ -485,13 +497,12 @@
   <div class="lockup grid">
     <div class="c-1-8 headline">
       <h1>
-        <span><i>Every company</i></span>
-        <span><i>is a series of decisions.</i></span>
-        <span class="quiet"><i>We know which ones win.</i></span>
+        <span><i>Start Your Company.</i></span>
+        <span><i>Run It With AI.</i></span>
       </h1>
     </div>
     <div class="c-9-12 aside">
-      <p class="lede in d2">Mutiny positions, builds, operates, and scales your company autonomously with a tailored fleet of AI agents. From 0, or wherever you are, to infinity.</p>
+      <p class="lede in d2">Every company is a series of decisions. We know which ones win. Mutiny positions, builds, operates, and scales your company autonomously with a tailored fleet of AI agents. From 0, or wherever you are, to infinity.</p>
       <p class="lede in d2">Rebel-1, a world model trained on millions of company and product decisions and outcomes, guides your business.</p>
       <a class="cta in d3" href="/intake/">Start company<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"/><path d="M13 6l6 6-6 6"/></svg></a>
       <p class="note in d3">A small number of founders go first.</p>
@@ -749,7 +760,7 @@ function Terrain(terrainCanvas, pathCanvas, opt){
   in vec2 a; void main(){ gl_Position = vec4(a,0.,1.); }`;
   const fs = `#version 300 es
   precision highp float;
-  uniform vec2 u_res, u_off; uniform float u_t, u_scale, u_levels, u_dpr, u_zoom; uniform vec4 u_clear; uniform sampler2D u_lat;
+  uniform vec2 u_res, u_off; uniform float u_t, u_scale, u_levels, u_dpr, u_zoom, u_fade; uniform vec3 u_ink; uniform vec4 u_clear; uniform sampler2D u_lat;
   out vec4 o;
   float lat(vec2 i){ return texelFetch(u_lat, ivec2(mod(i, 256.0)), 0).r; }
   float vn(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
@@ -770,20 +781,22 @@ function Terrain(terrainCanvas, pathCanvas, opt){
     float minor = 1.0 - smoothstep(0.0, fw*1.25, d);
     float v5 = v/5.0; float f5 = fract(v5), d5 = min(f5, 1.0-f5); float fw5 = fwidth(v5);
     float major = 1.0 - smoothstep(0.0, fw5*1.9, d5);
-    float a = max(minor*0.42*smoothstep(0.08, 0.32, u_zoom), major*0.78);
+    float a = max(minor*0.42*smoothstep(0.08, 0.32, u_zoom), major*0.78) * u_fade;
     // keep the type clear: soft rectangle
     vec2 dv = max(vec2(u_clear.x - s.x, s.x - (u_clear.x + u_clear.z)), 0.0) + max(vec2(u_clear.y - s.y, s.y - (u_clear.y + u_clear.w)), 0.0);
     float dd = length(vec2(max(dv.x, dv.y), 0.0));
     float dist = length(max(vec2(max(u_clear.x - s.x, s.x - (u_clear.x+u_clear.z)), max(u_clear.y - s.y, s.y - (u_clear.y+u_clear.w))), 0.0));
     a *= mix(0.16, 1.0, smoothstep(0.0, 110.0, dist));
-    o = vec4(vec3(20.,18.,16.)/255.0 * a, a);
+    o = vec4(u_ink/255.0 * a, a);
   }`;
   const sh=(t,src)=>{const x=gl.createShader(t); gl.shaderSource(x,src); gl.compileShader(x); if(!gl.getShaderParameter(x,gl.COMPILE_STATUS)) console.error(gl.getShaderInfoLog(x)); return x;};
   const prog=gl.createProgram(); gl.attachShader(prog,sh(gl.VERTEX_SHADER,vs)); gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,fs)); gl.linkProgram(prog); gl.useProgram(prog);
   const vb=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,vb); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
   const loc=gl.getAttribLocation(prog,'a'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
-  const U=n=>gl.getUniformLocation(prog,n); const u={res:U('u_res'),off:U('u_off'),t:U('u_t'),scale:U('u_scale'),levels:U('u_levels'),dpr:U('u_dpr'),clear:U('u_clear'),lat:U('u_lat'),zoom:U('u_zoom')};
+  const U=n=>gl.getUniformLocation(prog,n); const u={res:U('u_res'),off:U('u_off'),t:U('u_t'),scale:U('u_scale'),levels:U('u_levels'),dpr:U('u_dpr'),clear:U('u_clear'),lat:U('u_lat'),zoom:U('u_zoom'),fade:U('u_fade'),ink:U('u_ink')};
   gl.uniform1i(u.lat,0); gl.uniform1f(u.scale,o.scale); gl.uniform1f(u.levels,o.levels); gl.uniform1f(u.zoom,1);
+  // ink: the contour colour (default the page ink); fade: overall strength (1 = as before)
+  gl.uniform1f(u.fade, o.fade==null?1:o.fade); const ink=o.ink||[20,18,16]; gl.uniform3f(u.ink, ink[0], ink[1], ink[2]);
 
   // the same field on the CPU
   const L=(x,y)=>lattice[(((y%N)+N)%N)*N + (((x%N)+N)%N)];
@@ -836,7 +849,10 @@ function Terrain(terrainCanvas, pathCanvas, opt){
     let dy = 0.72*cy + 0.22*uy;
     // stay on the page and out of the type
     if (head.y < H*0.13) dy += 1.2; if (head.y > H*0.9) dy -= 0.6;
-    if (keep){ const sx=head.x-off[0]; const nearX = sx>keep.x0-140 && sx<keep.x1+60; const nearY = head.y>keep.y0-90 && head.y<keep.y1+40;
+    if (o.floor != null){
+      // the type sits above this band: the line walks beneath it and climbs back down if it drifts up
+      if (head.y < H*o.floor) dy += 1.4 + (H*o.floor - head.y)/H*6;
+    } else if (keep){ const sx=head.x-off[0]; const nearX = sx>keep.x0-140 && sx<keep.x1+60; const nearY = head.y>keep.y0-90 && head.y<keep.y1+40;
       if (nearX && nearY) { dy -= 1.6; dx += 0.4; }
       // to the right of the type the whole height is open ground; drift back down into it
       if (sx>keep.x1+120 && head.y < H*0.3) dy += 0.35; }
@@ -943,7 +959,7 @@ function Terrain(terrainCanvas, pathCanvas, opt){
   return { setProgress, stats, life, head: () => ({ x: SX(head.x), y: SY(head.y) }), size: () => ({W,H}), marks: () => marks };
 }
 document.fonts.ready.then(()=>{
-  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.2, headAt:.5, labels:true, walk:78, clear:()=>document.querySelector('.hero .aside'), clear2:()=>document.querySelector('.hero h1') });
+  Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.82, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:.74, clear:()=>document.querySelector('.hero .lockup') });
   Terrain(document.getElementById('model-terrain'), document.getElementById('model-path'), { seed:29, scale:260, levels:22, walk:40, headAt:.62, startY:.5, labels:true });
   mountJobs();
   mountLoop();
