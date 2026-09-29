@@ -531,22 +531,8 @@
     </div>
   </section>
 
-  <section id="why">
-    <div class="grid">
-      <div class="c-1-5">
-        <h2>Every move, played forward before you make it.</h2>
-        <p class="copy">Rebel-1 has watched thousands of companies make millions of decisions, and it knows how each one ended.</p>
-        <p class="copy">You bring the idea and the judgment. A fleet of AI agents, assembled for your company, brings the rest: the code you can't write, the outbound you'd rather not send, the books, the contracts, the support queue at three in the morning. Where you are strong, they follow. Where you are not, they take over.</p>
-        <p class="copy">Building a company used to be a bet placed in the dark. Now you can see the whole board: try a move, watch where it leads, take the one that wins, keep going.</p>
-      </div>
-      <figure class="c-7-12">
-        <div class="model" aria-label="The world model as terrain, with one path climbing to high ground."><canvas id="model-terrain"></canvas><canvas id="model-path"></canvas></div>
-        <figcaption><span>Your company, in play.</span><span>Every step is a move. Rebel-1 has already seen where it leads.</span></figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="jobs">
+  <!-- hidden for now: remove the hidden attribute and inline style to bring it back -->
+  <section id="jobs" hidden style="display:none">
     <div class="grid jobs-head">
       <div class="c-1-5">
         <h2><span id="jobs-total">0</span> jobs. <span id="jobs-you">0</span> are yours.</h2>
@@ -969,7 +955,6 @@ function Terrain(terrainCanvas, pathCanvas, opt){
 }
 document.fonts.ready.then(()=>{
   Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.76, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:60, clear:()=>document.querySelector('.hero .lockup') });
-  Terrain(document.getElementById('model-terrain'), document.getElementById('model-path'), { seed:29, scale:260, levels:22, walk:40, headAt:.62, startY:.5, labels:true });
   mountJobs();
   mountLoop();
   mountDays();
