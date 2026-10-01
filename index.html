@@ -332,27 +332,30 @@
   @media (prefers-reduced-motion:reduce){ .st-job.flip{ animation:none; } .st-bar b{ transition:none; } .st-bar i.wait{ animation:none; } }
 
   /* ---------- the loop ---------- */
-  .loop svg{ width:100%; height:auto; display:block; overflow:visible; font-family:"Spline Sans Mono",ui-monospace,Menlo,monospace; }
-  .loop .ring{ fill:none; stroke:var(--ink); stroke-width:1.2; }
-  .loop .ring.back{ stroke:var(--orange); stroke-width:1.8; }
-  .loop .spoke{ fill:none; stroke:var(--ink-28); stroke-width:1; stroke-dasharray:3 4; }
-  .loop .spoke.back{ stroke:var(--orange); stroke-dasharray:none; stroke-width:1.4; }
-  .loop .node circle{ fill:var(--paper); stroke:var(--ink); stroke-width:1.2; transition:fill .35s, r .35s; }
-  .loop .node.lit circle{ fill:var(--ink); }
-  .loop .node text{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; fill:var(--ink); }
-  .loop .node .sub{ font-family:"Schibsted Grotesk",sans-serif; font-size:12.5px; letter-spacing:-.005em; text-transform:none; fill:var(--ink-72); }
-  .loop .core circle{ fill:var(--ink); }
-  .loop .core text{ fill:var(--paper); font-size:11px; letter-spacing:.06em; text-transform:uppercase; text-anchor:middle; }
-  .loop .core .sub{ fill:var(--ink-48); font-family:"Schibsted Grotesk",sans-serif; font-size:12.5px; text-transform:none; letter-spacing:0; }
-  .loop .unit rect{ fill:var(--paper); stroke:var(--ink-28); transition:fill .25s, stroke .25s; }
-  .loop .unit text{ font-size:10px; letter-spacing:.06em; text-transform:uppercase; fill:var(--ink-72); transition:fill .25s; }
-  .loop .unit.lit rect{ fill:var(--orange); stroke:var(--orange); }
-  .loop .unit.lit text{ fill:var(--paper); }
-  .loop .pulse{ fill:var(--orange); }
-  .loop .halo{ fill:none; stroke:var(--orange); stroke-width:1; opacity:.45; }
-  .loop .arc-label{ font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; fill:var(--orange-deep); }
-  .loop .count{ font-family:"Spline Sans Mono",ui-monospace,Menlo,monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-48); margin-top:calc(var(--u)*2); display:flex; justify-content:space-between; gap:16px; font-variant-numeric:tabular-nums; }
-  .loop .count b{ color:var(--ink); font-weight:500; }
+  /* One night: what the company did while the founder was away */
+  .night{ font-family:"Spline Sans Mono",ui-monospace,Menlo,monospace; }
+  .night-head{ display:flex; justify-content:space-between; align-items:baseline; gap:16px; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-48); }
+  .night-head b{ color:var(--ink); font-weight:500; font-size:13px; letter-spacing:.04em; font-variant-numeric:tabular-nums; }
+  .night-sky{ position:relative; height:1px; background:var(--ink-28); margin:18px 0 8px; }
+  .night-sky i{ position:absolute; top:-4px; left:0; width:9px; height:9px; margin-left:-4px; border-radius:50%; background:var(--orange); box-shadow:0 0 0 5px rgba(216,90,48,.14); transition:left 1.1s cubic-bezier(.3,.7,.2,1); }
+  .night-ends{ display:flex; justify-content:space-between; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-48); }
+  .night-feed{ list-style:none; margin:26px 0 0; padding:0; min-height:calc(10 * 41px); }
+  .night-feed li{ display:grid; grid-template-columns:76px 132px minmax(0,1fr); align-items:baseline; gap:0 14px; padding:11px 0; border-top:1px solid var(--rule); animation:night-in .5s cubic-bezier(.2,.7,.2,1) both; }
+  .night-feed li:last-child{ border-bottom:1px solid var(--rule); }
+  .night-feed .t{ font-size:11px; letter-spacing:.04em; color:var(--ink-48); font-variant-numeric:tabular-nums; }
+  .night-feed .d{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--dc, var(--ink-72)); white-space:nowrap; }
+  .night-feed .w{ font-family:"Schibsted Grotesk",sans-serif; font-size:clamp(14.5px, 1.1vw, 16.5px); letter-spacing:-.005em; color:var(--ink); }
+  .night-feed li.new .w{ animation:night-ink 1.6s ease-out both; }
+  @keyframes night-in{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+  @keyframes night-ink{ from{ color:var(--orange-deep); } to{ color:var(--ink); } }
+  .night-morning{ margin-top:22px; padding:18px 20px 16px; background:var(--ink); color:var(--paper); border-radius:6px; animation:night-in .6s cubic-bezier(.2,.7,.2,1) both; }
+  .night-morning .gm{ font-family:"Schibsted Grotesk",sans-serif; font-size:clamp(16px, 1.3vw, 19px); letter-spacing:-.01em; margin:0 0 12px; color:rgba(242,240,234,.72); }
+  .night-morning .gm b{ color:var(--paper); font-weight:500; }
+  .night-morning .ask{ display:flex; justify-content:space-between; align-items:center; gap:12px 16px; flex-wrap:wrap; padding:10px 0; border-top:1px solid rgba(242,240,234,.16); font-family:"Schibsted Grotesk",sans-serif; font-size:15px; }
+  .night-morning .pills{ display:flex; gap:8px; }
+  .night-morning .pills i{ font-style:normal; font-family:"Spline Sans Mono",ui-monospace,Menlo,monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; padding:6px 11px; border:1px solid rgba(242,240,234,.32); border-radius:999px; color:rgba(242,240,234,.8); }
+  .night-morning .pills i.p{ background:var(--orange); border-color:var(--orange); color:#fff; }
+  @media (prefers-reduced-motion:reduce){ .night-feed li, .night-feed li.new .w, .night-morning{ animation:none; } .night-sky i{ transition:none; } }
 
   /* ---------- day 0 to day 1,000 ---------- */
   #days{ padding:0; }
@@ -469,7 +472,11 @@
     .act{ height:42px; font-size:14px; padding:0 16px; }
     .st-foot{ margin-top:26px; font-size:12px; line-height:18px; }
     /* how it runs */
-    .loop .count{ font-size:9.5px; flex-direction:column; gap:4px; margin-top:12px; }
+    .night-head{ flex-direction:column; gap:4px; font-size:9.5px; }
+    .night-feed{ min-height:calc(10 * 52px); }
+    .night-feed li{ grid-template-columns:auto minmax(0,1fr); gap:2px 10px; padding:9px 0; }
+    .night-feed .w{ grid-column:1 / -1; font-size:14.5px; }
+    .night-morning .ask{ font-size:14px; }
     /* talk to rebel-1 */
     .intake{ height:62vh; zoom:.8; }
     .intake .rebel{ font-size:20px; line-height:1.25; }
@@ -551,17 +558,25 @@
     <p class="st-foot">Rebel-1 decides how each job gets done. <a href="/report/">Read the technical report.</a></p>
   </section>
 
-  <section id="loop">
+  <section id="night">
     <div class="grid">
       <div class="c-1-5">
-        <h2>How it runs.</h2>
-        <p class="copy">Every hour, for every company: look at where things stand, list the possible next moves, test each one with Rebel-1, do the best one, check what happened, and record it.</p>
-        <p class="copy">The record goes back into Rebel-1. So it knows more about your company each week than it did the week before.</p>
-        <p class="copy">It runs while you sleep.</p>
+        <h2>It works while you sleep.</h2>
+        <p class="copy">You close the laptop. Your company keeps going. The product ships, customers get answers, the pipeline fills.</p>
+        <p class="copy">In the morning you see what got done, and the few calls it saved for you.</p>
       </div>
-      <div class="c-7-12 loop">
-        <svg id="loop-svg" viewBox="0 0 700 420" aria-label="How it runs: look at where things stand, list the next moves, test each with Rebel-1, do the best one, check what happened, record the result, which goes back into Rebel-1."></svg>
-        <div class="count"><span>Loops since you opened this page · <b id="cycles">0</b></span><span>About one a minute, slowed down so you can see it</span></div>
+      <div class="c-7-12 night" id="night-stage" aria-label="One night at a company run by Mutiny: work is done through the night, and two decisions are saved for the founder in the morning.">
+        <div class="night-head"><span><b id="night-clock">11:40 PM</b></span><span>One night at a Mutiny company · illustrative</span></div>
+        <div class="night-sky" aria-hidden="true"><i id="night-dot"></i></div>
+        <div class="night-ends" aria-hidden="true"><span>You log off</span><span>You're back</span></div>
+        <ol class="night-feed" id="night-feed"></ol>
+        <div class="night-morning" id="night-morning" hidden>
+          <p class="gm"><b>Good morning.</b> <span id="night-done">10</span> things done. 2 saved for you.</p>
+          <div class="asks">
+            <div class="ask"><span>Raise the Pro plan to $49?</span><span class="pills"><i class="p">Yes</i><i>Not yet</i></span></div>
+            <div class="ask"><span>Send the contract to Northside?</span><span class="pills"><i class="p">Send</i><i>Let me read it</i></span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -955,7 +970,7 @@ function Terrain(terrainCanvas, pathCanvas, opt){
 document.fonts.ready.then(()=>{
   Terrain(document.getElementById('terrain'), document.getElementById('path'), { seed:5, startY:.76, headAt:.5, labels:true, walk:78, fade:.62, ink:[96,78,58], floor:60, clear:()=>document.querySelector('.hero .lockup') });
   mountJobs();
-  mountLoop();
+  mountNight();
   mountDays();
 });
 
@@ -1196,48 +1211,35 @@ function mountJobs(){
   new IntersectionObserver(([e])=>{ vis=e.isIntersecting; if(vis && !timer && !waiting) later(step, 300); if(!vis) clear(); },{threshold:0.25}).observe(stage);
 }
 
-// ---------- the loop: what runs for each company, around the clock ----------
-function mountLoop(){
-  const svg=document.getElementById('loop-svg'); if(!svg) return; const ns='http://www.w3.org/2000/svg';
-  const mk=(t,a,parent)=>{ const e=document.createElementNS(ns,t); for(const k in a) e.setAttribute(k,a[k]); (parent||svg).appendChild(e); return e; };
-  const d='M120 50 H540 A40 40 0 0 1 580 90 V330 A40 40 0 0 1 540 370 H100 A40 40 0 0 1 60 330 V90 A40 40 0 0 1 100 50 Z';
-  const ring=mk('path',{class:'ring',d}); const L=ring.getTotalLength();
-  const NODES=[
-    { f:0.000, t:'Look',   s:'at where things stand', side:'top' },
-    { f:0.127, t:'List',   s:'the next moves',        side:'top' },
-    { f:0.255, t:'Test',   s:'each one with Rebel-1', side:'top' },
-    { f:0.384, t:'Do',     s:'the best one',          side:'rightout' },
-    { f:0.640, t:'Check',  s:'what happened',         side:'bottom' },
-    { f:0.768, t:'Record', s:'the result',            side:'bottom' },
+// ---------- one night: what the company did while the founder was away ----------
+function mountNight(){
+  const stage=document.getElementById('night-stage'); if(!stage) return;
+  const feed=document.getElementById('night-feed'), clock=document.getElementById('night-clock'), dot=document.getElementById('night-dot'), morning=document.getElementById('night-morning');
+  const C={ eng:'#B9481F', design:'#7E5FA8', mkt:'#2E7D5B', sales:'#6F7F1F', cust:'#2F6F9F', data:'#9A6B2F', legal:'#5B5750' };
+  const NIGHT=[
+    ['11:48 PM','Engineering',C.eng,'Shipped the new pricing page'],
+    ['12:15 AM','Customers',C.cust,'Answered 9 support emails'],
+    ['12:40 AM','Sales',C.sales,'Followed up with 31 leads. 4 wrote back.'],
+    ['1:30 AM','Engineering',C.eng,'Fixed the checkout bug a customer hit'],
+    ['2:05 AM','Marketing',C.mkt,"Published this week's post"],
+    ['3:20 AM','Data',C.data,'Found why signups dipped on Tuesday'],
+    ['4:10 AM','Design & Brand',C.design,'Redrew the onboarding screens'],
+    ['5:00 AM','Sales',C.sales,'Booked 2 demos for Thursday'],
+    ['5:45 AM','Legal',C.legal,'Drafted the contract for Northside'],
+    ['6:30 AM','Customers',C.cust,'Handled a refund. The customer stayed.'],
   ];
-  // the return: from the ledger back around to the start, and into Rebel-1
-  const back=mk('path',{class:'ring back',d}); back.setAttribute('stroke-dasharray', (L*(1-0.768))+' '+L); back.setAttribute('stroke-dashoffset', -(L*0.768));
-  const C={x:320,y:210};
-  const pf=ring.getPointAtLength(0.255*L), wb=ring.getPointAtLength(0.768*L);
-  mk('line',{class:'spoke',x1:pf.x,y1:pf.y,x2:C.x,y2:C.y});
-  mk('line',{class:'spoke back',x1:wb.x,y1:wb.y,x2:C.x,y2:C.y});
-  mk('text',{class:'arc-label',x:48,y:210,'text-anchor':'middle',transform:'rotate(-90 48 210)'}).textContent='results go back into Rebel-1';
-  const core=mk('g',{class:'core'}); mk('circle',{cx:C.x,cy:C.y,r:27},core); mk('text',{x:C.x,y:C.y+4},core).textContent='Rebel-1'; mk('text',{class:'sub',x:C.x,y:C.y+48,'text-anchor':'middle'},core).textContent='the model that predicts outcomes';
-  const nodes=NODES.map(n=>{ const p=ring.getPointAtLength(n.f*L); const g=mk('g',{class:'node'}); mk('circle',{cx:p.x,cy:p.y,r:6},g);
-    const lab=mk('text',{},g), sub=mk('text',{class:'sub'},g); lab.textContent=n.t; sub.textContent=n.s;
-    if(n.side==='top'){ lab.setAttribute('x',p.x); lab.setAttribute('y',p.y-26); sub.setAttribute('x',p.x); sub.setAttribute('y',p.y-12); lab.setAttribute('text-anchor','middle'); sub.setAttribute('text-anchor','middle'); }
-    else if(n.side==='bottom'){ lab.setAttribute('x',p.x); lab.setAttribute('y',p.y+22); sub.setAttribute('x',p.x); sub.setAttribute('y',p.y+36); lab.setAttribute('text-anchor','middle'); sub.setAttribute('text-anchor','middle'); }
-    else { lab.setAttribute('x',p.x+16); lab.setAttribute('y',p.y-4); sub.setAttribute('x',p.x+16); sub.setAttribute('y',p.y+11); lab.setAttribute('text-anchor','start'); sub.setAttribute('text-anchor','start'); }
-    return { ...n, g, len:n.f*L }; });
-  const UNITS=['code','outbound','books','contracts','support'];
-  const units=UNITS.map((u,i)=>{ const g=mk('g',{class:'unit'}); const x=452,y=92+i*28; mk('rect',{x,y,width:100,height:20,rx:4},g); const t=mk('text',{x:x+9,y:y+14},g); t.textContent=u; return g; });
-  const fleetLab=mk('text',{x:552,y:246,class:'arc-label','text-anchor':'end'}); fleetLab.textContent='the agents that do the work'; fleetLab.setAttribute('fill','var(--ink-48)');
-  const halo=mk('circle',{class:'halo',r:11}), pulse=mk('circle',{class:'pulse',r:5});
-  const cyc=document.getElementById('cycles'); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const PERIOD=9000; const t0=performance.now(); let vis=false;
-  new IntersectionObserver(([e])=>{ vis=e.isIntersecting; },{threshold:0}).observe(svg);
-  function place(len){ const p=ring.getPointAtLength(len); pulse.setAttribute('cx',p.x); pulse.setAttribute('cy',p.y); halo.setAttribute('cx',p.x); halo.setAttribute('cy',p.y);
-    for (const n of nodes){ const dlen=(len-n.len+L)%L; n.g.classList.toggle('lit', dlen < 46); }
-    const fa=0.384, fb=0.640, f=len/L; const inAct=f>=fa&&f<fb; const k=inAct?Math.floor((f-fa)/(fb-fa)*UNITS.length):-1;
-    units.forEach((u,i)=>u.classList.toggle('lit', inAct && i<=k)); }
-  if (reduce){ place(0); return; }
-  function frame(now){ if (vis){ const el=now-t0; place((el/PERIOD*L)%L); cyc.textContent=String(Math.floor(el/PERIOD)); } requestAnimationFrame(frame); }
-  requestAnimationFrame(frame);
+  document.getElementById('night-done').textContent=String(NIGHT.length);
+  const row=(r,fresh)=>{ const li=document.createElement('li'); if(fresh) li.className='new';
+    li.innerHTML=`<span class="t">${r[0]}</span><span class="d" style="--dc:${r[2]}">${r[1]}</span><span class="w">${r[3]}</span>`; return li; };
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){ NIGHT.forEach(r=>feed.appendChild(row(r,false))); clock.textContent='7:00 AM'; dot.style.left='100%'; morning.hidden=false; return; }
+  let i=0, timer=null, vis=false;
+  const reset=()=>{ feed.innerHTML=''; morning.hidden=true; clock.textContent='11:40 PM'; dot.style.left='0%'; i=0; };
+  const step=()=>{ timer=null; if(!vis) return;
+    if (i<NIGHT.length){ const r=NIGHT[i]; feed.appendChild(row(r,true)); clock.textContent=r[0]; dot.style.left=((i+1)/(NIGHT.length+1)*100)+'%'; i++; timer=setTimeout(step, 1250); }
+    else if (morning.hidden){ clock.textContent='7:00 AM'; dot.style.left='100%'; morning.hidden=false; timer=setTimeout(step, 9000); }
+    else { reset(); timer=setTimeout(step, 900); } };
+  new IntersectionObserver(([e])=>{ vis=e.isIntersecting; if(vis && !timer) timer=setTimeout(step, 500); if(!vis && timer){ clearTimeout(timer); timer=null; } },{threshold:0.3}).observe(stage);
 }
 
 // ---------- day 0 to day 1,000: the visitor's own future, scrolled ----------
